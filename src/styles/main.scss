@@ -1,0 +1,75 @@
+@import 'variables';
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-manrope), sans-serif;
+  background-color: var(--color-light-gray);
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background-color: var(--full-branco-ffffff);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.welcome-container {
+  background-color: var(--full-branco-ffffff);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.welcome-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: 5px;
+}
+
+.welcome-date {
+  font-size: var(--font-size-md);
+  color: var(--cinza-6f7d7d);
+  margin-bottom: 20px;
+}
+
+.welcome-illustration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.welcome-message {
+  text-align: center;
+  padding: 15px;
+  border: 1px solid var(--verde-escuro-1-cor-do-sistema-17876d);
+  border-radius: 8px;
+  width: 300px;
+  font-size: var(--font-size-base);
+  color: var(--verde-escuro-2-para-texto-titulo-0a453a);
+}
