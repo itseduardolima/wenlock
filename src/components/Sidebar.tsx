@@ -87,9 +87,7 @@ const Sidebar = () => {
                 minHeight: 54,
                 height: 54,
                 justifyContent: open ? "initial" : "center",
-                backgroundColor: isHomeActive
-                  ? "var(--color-cyan)"
-                  : "transparent",
+
                 borderRadius: "6px",
                 margin: "4px 8px",
                 padding: open ? "0 12px" : 0,
@@ -128,7 +126,7 @@ const Sidebar = () => {
 
           <ListItem
             disablePadding
-            className={`sidebar-item ${isAccessControlActive ? "active" : ""}`}
+            className="sidebar-item"
           >
             <ListItemButton
               onClick={toggleAccessControl}
@@ -137,10 +135,7 @@ const Sidebar = () => {
                 minHeight: 54,
                 height: 54,
                 justifyContent: open ? "initial" : "center",
-                backgroundColor:
-                  isAccessControlActive && !isUsersActive
-                    ? "var(--color-cyan)"
-                    : "transparent",
+
                 borderRadius: "6px",
                 margin: "4px 8px",
                 padding: open ? "0 12px" : 0,
@@ -165,10 +160,6 @@ const Sidebar = () => {
                 sx={{
                   opacity: open ? 1 : 0,
                   "& .MuiTypography-root": {
-                    color:
-                      isAccessControlActive && !isUsersActive
-                        ? "var(--verde-black-menu-lateral-021b1a)"
-                        : "var(--full-branco-ffffff)",
                     fontSize: "16px",
                     lineHeight: "22px",
                     opacity: "0.6",
@@ -201,9 +192,7 @@ const Sidebar = () => {
                     minHeight: 37,
                     height: 37,
                     justifyContent: open ? "initial" : "center",
-                    backgroundColor: isUsersActive
-                      ? "var(--color-cyan)"
-                      : "transparent",
+
                     borderRadius: "6px",
                     margin: "4px 8px",
                     padding: open ? "0 12px" : 0,
