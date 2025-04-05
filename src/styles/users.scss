@@ -1,0 +1,296 @@
+.users-container {
+  padding: 10px;
+
+  .page-title {
+    font-weight: bold;
+    color: var(--verde-escuro-3-0b2b25);
+    margin-bottom: 20px;
+    font-size: 32px;
+  }
+
+  .users-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .search-field {
+      width: 285px;
+      background-color: var(--full-branco-ffffff);
+      border-radius: 7px;
+      box-shadow: 0px 3px 6px #00000029;
+      border: 1px solid #86868645;
+
+      .MuiOutlinedInput-root {
+        border: none;
+
+        .MuiOutlinedInput-notchedOutline {
+          border: 1px solid #86868645;
+          transition: border 0.2s ease;
+        }
+
+        &:hover .MuiOutlinedInput-notchedOutline {
+          border: 1px solid #86868680;
+        }
+
+        &.Mui-focused .MuiOutlinedInput-notchedOutline {
+          border: 2px solid #00aac1;
+          border-radius: 7px;
+        }
+      }
+
+      &:hover {
+        background-color: #e3e3e3;
+      }
+
+      .MuiInputBase-input {
+        &::placeholder {
+          color: var(--verde-escuro-2-para-texto-titulo-0a453a);
+          opacity: 86%;
+        }
+      }
+
+      .clear-button {
+        color: #666;
+        &:hover {
+          color: #333;
+        }
+      }
+    }
+
+    .add-button {
+      background-color: var(--color-teal);
+      color: var(--full-branco-ffffff);
+      border-radius: 8px;
+      font-weight: bold;
+      width: 180px;
+      height: 46px;
+      margin-right: 7px;
+
+      &:hover {
+        background-color: var(--00606d-hover);
+      }
+    }
+  }
+
+  .users-table-container {
+    background-color: var(--color-light-gray);
+    border-radius: 6px;
+    overflow: hidden;
+    max-height: 430px;
+    display: flex;
+    flex-direction: column;
+    padding-right: 10px;
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px;
+      flex: 1;
+
+      .empty-title {
+        font-weight: 500;
+        color: var(--verde-escuro-2-para-texto-titulo-0a453a);
+        margin-bottom: 8px;
+      }
+
+      .empty-subtitle {
+        color: var(--cinza-6f7d7d);
+        text-align: center;
+      }
+    }
+
+    .MuiTableHead-root {
+      .MuiTableRow-root {
+        background-color: var(--color-navy);
+
+        .MuiTableCell-root {
+          color: var(--full-branco-ffffff);
+          font-weight: 500;
+          border-bottom: none;
+
+          &:first-of-type {
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+          }
+
+          &:last-of-type {
+            padding-right: 60px;
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+          }
+        }
+      }
+    }
+
+    .MuiTableBody-root {
+      .MuiTableRow-root {
+        background-color: white;
+        height: 56px;
+
+       
+        .MuiTableCell-root {
+          border-radius: 0;
+          border-bottom: none;
+          height: 0;
+        }
+
+        
+        &:first-of-type {
+          .MuiTableCell-root {
+            &:first-of-type {
+              border-top-left-radius: 6px;
+            }
+            &:last-of-type {
+              border-top-right-radius: 6px;
+            }
+          }
+        }
+
+     
+        &:last-of-type {
+          .MuiTableCell-root {
+            &:first-of-type {
+              border-bottom-left-radius: 6px;
+            }
+            &:last-of-type {
+              border-bottom-right-radius: 6px;
+            }
+          }
+        }
+      }
+    }
+
+    .action-buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: end;
+      gap: 8px;
+
+      .action-button {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+
+        &.view-button {
+          background-color: transparent;
+
+          &:hover {
+            background-color: var(--color-teal);
+          }
+        }
+
+        &.edit-button {
+          background-color: transparent;
+
+          &:hover {
+            background-color: var(--color-teal);
+          }
+        }
+
+        &.delete-button {
+          background-color: transparent;
+
+          &:hover {
+            background-color: var(--color-teal);
+          }
+        }
+      }
+    }
+
+    .pagination-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0px;
+      margin-top: auto;
+
+      .total-items {
+        font-size: 14px;
+        color: var(--verde-escuro-3-0b2b25);
+        font-weight: 500;
+
+        span {
+          font-weight: 700;
+        }
+      }
+
+      .items-per-page {
+        font-size: 14px;
+        color: var(--verde-escuro-3-0b2b25);
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        span {
+          font-weight: 700;
+        }
+      }
+
+      .pagination-controls {
+        display: flex;
+        align-items: center;
+        
+
+        .pagination-button {
+          min-width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          color: #616C84;
+
+          &.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+          }
+
+          &.current-page {
+            background-color: var(--color-teal);
+            color: white;
+            border-radius: 5px;
+          }
+        }
+
+        .page-info {
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          font-weight: bold;
+          color:  var(--verde-escuro-3-0b2b25);
+          margin-left: 8px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1728px) {
+  .users-container {
+    padding: 20px;
+
+    .page-title {
+      font-size: 38px;
+    }
+
+    .users-actions {
+      .add-button {
+        font-size: 18px;
+        width: 223px;
+        height: 56px;
+      }
+    }
+
+    .users-table-container {
+      max-height: 600px;
+    }
+  }
+}
