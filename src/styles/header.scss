@@ -7,18 +7,57 @@
   padding: 0 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-  .avatar-button {
-    cursor: pointer;
-    
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.04);
+  .avatar-container {
+    position: relative;
+
+    .avatar-button {
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+    }
+
+    .arrow-indicator {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      background-color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+      svg {
+        font-size: 16px;
+        color: var(--color-navy);
+      }
+
+      &.open {
+        svg {
+          color: var(--cinza-6f7d7d);
+        }
+      }
     }
   }
 }
 
+.logout-button {
+  &:hover {
+    background-color: rgba(2, 144, 164, 0.18) !important;
+  }
+}
+
+.logout-text {
+  font-weight: 700;
+  color: var(--verde-escuro-3-0b2b25);
+}
 
 @media (min-width: 1728px) {
- .header {
-  padding: 0 32px;
- }
+  .header {
+    padding: 0 32px;
+  }
 }

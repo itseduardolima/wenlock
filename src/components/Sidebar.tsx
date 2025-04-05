@@ -11,7 +11,7 @@ import {
   styled,
   IconButton,
 } from "@mui/material";
-import { ChevronLeft, ChevronRight } from "@mui/icons-material";
+import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import "../styles/sidebar.scss";
 import Logo from "../assets/images/logo.svg";
@@ -177,7 +177,7 @@ const Sidebar = () => {
               />
               {open && (
                 <span className="expand-icon">
-                  {accessControlOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                  {accessControlOpen ? <ExpandMoreIcon /> : <ExpandLessIcon />}
                 </span>
               )}
             </ListItemButton>
@@ -244,7 +244,7 @@ const Sidebar = () => {
           <div className="footer-text">
             {open ? (
               <>
-                <span className="name" >© WenLock</span>
+                <span className="name">© WenLock</span>
                 <span className="version">Power by conecthus</span>
                 <span className="version">Versão 0.0.0</span>
               </>
@@ -282,7 +282,7 @@ const Sidebar = () => {
           },
         }}
       >
-        {open ? <ChevronLeft /> : <ChevronRight />}
+        {open ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
       </IconButton>
     </div>
   );
