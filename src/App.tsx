@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import "./styles/main.scss";
 import MainLayout from "./layouts/MainLayout";
 import Users from "./pages/Users";
+import { QueryProvider } from "./providers/QueryProvider";
 
 const theme = createTheme({
   palette: {
@@ -38,17 +39,19 @@ const theme = createTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<MainLayout />}>
-            <Route index element={<Home />} />
-            <Route path="usuarios" element={<Users />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
+    <QueryProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<MainLayout />}>
+              <Route index element={<Home />} />
+              <Route path="usuarios" element={<Users />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
+    </QueryProvider>
   );
 }
 

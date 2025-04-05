@@ -77,29 +77,49 @@
     background-color: var(--color-light-gray);
     border-radius: 6px;
     overflow: hidden;
+    height: 430px;
     max-height: 430px;
     display: flex;
     flex-direction: column;
     padding-right: 10px;
 
-    .empty-state {
+    .empty-state, .loading-state, .error-state {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 80px 20px;
       flex: 1;
+      text-align: center;
+    }
 
-      .empty-title {
-        font-weight: 500;
-        color: var(--verde-escuro-2-para-texto-titulo-0a453a);
-        margin-bottom: 8px;
-      }
+    .empty-title {
+      font-weight: 500;
+      color: var(--verde-escuro-2-para-texto-titulo-0a453a);
+      margin-bottom: 8px;
+    }
 
-      .empty-subtitle {
-        color: var(--cinza-6f7d7d);
-        text-align: center;
+    .empty-subtitle, .loading-text, .error-details {
+      color: var(--cinza-6f7d7d);
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    .loading-state {
+      .MuiCircularProgress-root {
+        color: var(--color-teal);
       }
+    }
+
+    .error-state {
+      .MuiAlert-root {
+        margin-bottom: 16px;
+      }
+    }
+
+    .MuiTable-root {
+      min-height: 135px;
+      
     }
 
     .MuiTableHead-root {
@@ -127,10 +147,9 @@
 
     .MuiTableBody-root {
       .MuiTableRow-root {
-        background-color: white;
-        height: 56px;
-
-       
+        background-color: var(--full-branco-ffffff);
+        
+        
         .MuiTableCell-root {
           border-radius: 0;
           border-bottom: none;
@@ -290,6 +309,7 @@
     }
 
     .users-table-container {
+      height: 600px;
       max-height: 600px;
     }
   }

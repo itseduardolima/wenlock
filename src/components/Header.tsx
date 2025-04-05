@@ -68,13 +68,12 @@ const Header = () => {
             overflow: "visible",
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.1))",
             mt: 1.5,
+
             width: 280,
             borderRadius: "8px",
             "& .MuiAvatar-root": {
               width: 40,
               height: 40,
-              ml: -0.5,
-              mr: 2,
             },
           },
         }}
@@ -106,12 +105,11 @@ const Header = () => {
             </Box>
           </Box>
         </Box>
-        
+
         <MenuItem
           onClick={handleClose}
           className="logout-button"
-          sx={{mx: 2, borderRadius: "6px"}}
-          
+          sx={{ mx: 2, borderRadius: "6px" }}
         >
           <Logout fontSize="small" sx={{ mr: 1 }} />
           <span className="logout-text">Sair</span>

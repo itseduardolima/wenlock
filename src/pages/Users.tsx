@@ -13,6 +13,8 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  CircularProgress,
+  Alert,
 } from "@mui/material";
 import {
   Add as AddIcon,
@@ -24,44 +26,51 @@ import {
   LastPage as LastPageIcon,
 } from "@mui/icons-material";
 import "../styles/users.scss";
-import type { User } from "../interface/user.interface";
-import { mockUsers } from "../mock/users";
 import { ViewIcon } from "../assets/icons/ViewIcon";
 import { PenIcon } from "../assets/icons/PenIcon";
 import { TrashIcon } from "../assets/icons/TrashIcon";
+import { useUsers } from "../hooks/useUsers";
 
 const Users = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
   const itemsPerPage = 15;
-  const [showMockData, setShowMockData] = useState(true);
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
 
   useEffect(() => {
-    if (showMockData) {
-      setUsers(mockUsers);
-      setFilteredUsers(mockUsers);
-    } else {
-      setUsers([]);
-      setFilteredUsers([]);
-    }
-  }, [showMockData]);
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchTerm);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+
+  const {
+    data: usersData,
+    isLoading,
+    isError,
+    error,
+  } = useUsers({
+    page,
+    limit: itemsPerPage,
+    search: debouncedSearch,
+  });
+
+  const users = usersData?.items || [];
+  const totalItems = usersData?.meta?.totalItems || 0;
+  const totalPages = usersData?.meta?.totalPages || 0;
+  const currentPage = usersData?.meta?.currentPage || 1;
 
   useEffect(() => {
-    if (searchTerm.trim() === "") {
-      setFilteredUsers(users);
-    } else {
-      const filtered = users.filter((user) =>
-        user.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredUsers(filtered);
+    if (usersData?.meta?.currentPage) {
+      setPage(usersData.meta.currentPage);
     }
-  }, [searchTerm, users]);
+  }, [usersData?.meta?.currentPage]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
+    setPage(1);
   };
 
   const handleClearSearch = () => {
@@ -88,10 +97,98 @@ const Users = () => {
     setPage(totalPages);
   };
 
-  const startIndex = (page - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const renderTableContent = () => {
+    if (isLoading) {
+      return (
+        <div className="loading-state">
+          <CircularProgress size={40} />
+          <Typography variant="body1" className="loading-text">
+            Carregando usuários...
+          </Typography>
+        </div>
+      );
+    }
+
+    if (isError) {
+      return (
+        <div className="error-state">
+          <Alert severity="error">
+            Erro ao carregar usuários. Por favor, tente novamente.
+          </Alert>
+          <Typography variant="body2" className="error-details">
+            {error instanceof Error ? error.message : "Erro desconhecido"}
+          </Typography>
+        </div>
+      );
+    }
+
+    if (users.length === 0) {
+      return (
+        <div className="empty-state">
+          <Typography variant="h6" className="empty-title">
+            Nenhum Usuário Encontrado
+          </Typography>
+          <Typography variant="body2" className="empty-subtitle">
+            {searchTerm
+              ? "Nenhum usuário corresponde à sua busca."
+              : "Clique em 'Cadastrar Usuário' para começar a cadastrar."}
+          </Typography>
+        </div>
+      );
+    }
+
+    return (
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{ color: "#0B2B25" }}>Nome</TableCell>
+              <TableCell align="right">Ações</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody className="table-body">
+            {users.map((user) => (
+              <TableRow
+                key={user.id}
+                sx={{
+                  position: "relative",
+                  top: 10,
+                }}
+              >
+                <TableCell>{user.name}</TableCell>
+
+                <TableCell align="right" className="action-buttons">
+                  <div
+                    className="action-button view-button"
+                    onMouseEnter={() => setHoveredButton(`view-${user.id}`)}
+                    onMouseLeave={() => setHoveredButton(null)}
+                  >
+                    <ViewIcon isHovered={hoveredButton === `view-${user.id}`} />
+                  </div>
+                  <div
+                    className="action-button edit-button"
+                    onMouseEnter={() => setHoveredButton(`edit-${user.id}`)}
+                    onMouseLeave={() => setHoveredButton(null)}
+                  >
+                    <PenIcon isHovered={hoveredButton === `edit-${user.id}`} />
+                  </div>
+                  <div
+                    className="action-button delete-button"
+                    onMouseEnter={() => setHoveredButton(`delete-${user.id}`)}
+                    onMouseLeave={() => setHoveredButton(null)}
+                  >
+                    <TrashIcon
+                      isHovered={hoveredButton === `delete-${user.id}`}
+                    />
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
+  };
 
   return (
     <div className="users-container">
@@ -140,75 +237,11 @@ const Users = () => {
       </div>
 
       <Paper elevation={0} className="users-table-container">
-        {users.length === 0 ? (
-          <div className="empty-state">
-            <Typography variant="h6" className="empty-title">
-              Nenhum Usuário Registrado
-            </Typography>
-            <Typography variant="body2" className="empty-subtitle">
-              Clique em "Cadastrar Usuário" para começar a cadastrar.
-            </Typography>
-          </div>
-        ) : (
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell sx={{ color: "#0B2B25" }}>Nome</TableCell>
-                  <TableCell align="right">Ações</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody className="table-body">
-                {paginatedUsers.map((user) => (
-                  <TableRow
-                    key={user.id}
-                    sx={{
-                      position: "relative",
-                      top: 10,
-                    }}
-                  >
-                    <TableCell>{user.name}</TableCell>
-                    <TableCell align="right" className="action-buttons">
-                      <div
-                        className="action-button view-button"
-                        onMouseEnter={() => setHoveredButton(`view-${user.id}`)}
-                        onMouseLeave={() => setHoveredButton(null)}
-                      >
-                        <ViewIcon
-                          isHovered={hoveredButton === `view-${user.id}`}
-                        />
-                      </div>
-                      <div
-                        className="action-button edit-button"
-                        onMouseEnter={() => setHoveredButton(`edit-${user.id}`)}
-                        onMouseLeave={() => setHoveredButton(null)}
-                      >
-                        <PenIcon
-                          isHovered={hoveredButton === `edit-${user.id}`}
-                        />
-                      </div>
-                      <div
-                        className="action-button delete-button"
-                        onMouseEnter={() =>
-                          setHoveredButton(`delete-${user.id}`)
-                        }
-                        onMouseLeave={() => setHoveredButton(null)}
-                      >
-                        <TrashIcon
-                          isHovered={hoveredButton === `delete-${user.id}`}
-                        />
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )}
+        {renderTableContent()}
 
         <div className="pagination-container">
           <div className="total-items">
-            Total de itens: <span>{filteredUsers.length}</span>
+            Total de itens: <span>{totalItems}</span>
           </div>
 
           <div className="pagination-controls">
@@ -231,7 +264,7 @@ const Users = () => {
               <KeyboardArrowLeftIcon />
             </IconButton>
 
-            <div className="pagination-button current-page">{page}</div>
+            <div className="pagination-button current-page">{currentPage}</div>
 
             <IconButton
               onClick={handleNextPage}
