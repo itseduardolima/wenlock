@@ -30,6 +30,7 @@ import { ViewIcon } from "../assets/icons/ViewIcon";
 import { PenIcon } from "../assets/icons/PenIcon";
 import { TrashIcon } from "../assets/icons/TrashIcon";
 import { useUsers } from "../hooks/useUsers";
+import NotFound from "..//assets/images/notfound-img.svg";
 
 const Users = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -102,9 +103,6 @@ const Users = () => {
       return (
         <div className="loading-state">
           <CircularProgress size={40} />
-          <Typography variant="body1" className="loading-text">
-            Carregando usuários...
-          </Typography>
         </div>
       );
     }
@@ -125,6 +123,15 @@ const Users = () => {
     if (users.length === 0) {
       return (
         <div className="empty-state">
+          {searchTerm ? (
+            <img
+              src={NotFound}
+              alt="Notfound image"
+              className="notfound-image"
+            />
+          ) : (
+            ""
+          )}
           <Typography variant="h6" className="empty-title">
             Nenhum Usuário Encontrado
           </Typography>

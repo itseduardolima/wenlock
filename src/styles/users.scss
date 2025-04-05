@@ -83,7 +83,9 @@
     flex-direction: column;
     padding-right: 10px;
 
-    .empty-state, .loading-state, .error-state {
+    .empty-state,
+    .loading-state,
+    .error-state {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -91,18 +93,31 @@
       padding: 80px 20px;
       flex: 1;
       text-align: center;
+      background-color: var(--full-branco-ffffff);
+
+      .notfound-image {
+        max-width: 130px;
+        margin-bottom: 20px;
+
+        img {
+          width: 100%;
+          height: auto;
+          max-width: 242px;
+        }
+      }
     }
 
     .empty-title {
-      font-weight: 500;
-      color: var(--verde-escuro-2-para-texto-titulo-0a453a);
-      margin-bottom: 8px;
+      font-weight: 700;
+      color: var(--verde-escuro-3-0b2b25);
+      font-size: 24px;
     }
 
-    .empty-subtitle, .loading-text, .error-details {
-      color: var(--cinza-6f7d7d);
+    .empty-subtitle,
+    .error-details {
+      color: var(--verde-escuro-3-0b2b25);
       text-align: center;
-      margin-top: 16px;
+      font-size: 18px;
     }
 
     .loading-state {
@@ -119,7 +134,6 @@
 
     .MuiTable-root {
       min-height: 135px;
-      
     }
 
     .MuiTableHead-root {
@@ -148,15 +162,13 @@
     .MuiTableBody-root {
       .MuiTableRow-root {
         background-color: var(--full-branco-ffffff);
-        
-        
+
         .MuiTableCell-root {
           border-radius: 0;
           border-bottom: none;
           height: 0;
         }
 
-        
         &:first-of-type {
           .MuiTableCell-root {
             &:first-of-type {
@@ -168,7 +180,6 @@
           }
         }
 
-     
         &:last-of-type {
           .MuiTableCell-root {
             &:first-of-type {
@@ -256,7 +267,6 @@
       .pagination-controls {
         display: flex;
         align-items: center;
-        
 
         .pagination-button {
           min-width: 40px;
@@ -265,7 +275,7 @@
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          color: #616C84;
+          color: #616c84;
 
           &.disabled {
             opacity: 0.5;
@@ -284,7 +294,7 @@
           align-items: center;
           font-size: 14px;
           font-weight: bold;
-          color:  var(--verde-escuro-3-0b2b25);
+          color: var(--verde-escuro-3-0b2b25);
           margin-left: 8px;
         }
       }
@@ -311,6 +321,19 @@
     .users-table-container {
       height: 600px;
       max-height: 600px;
+
+      .empty-state,
+      .loading-state,
+      .error-state {
+        .notfound-image {
+          max-width: 227px;
+
+          img {
+            width: 100%;
+            height: auto;
+          }
+        }
+      }
     }
   }
 }
