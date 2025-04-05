@@ -143,11 +143,12 @@ const Users = () => {
             ""
           )}
           <Typography variant="h6" className="empty-title">
-            Nenhum Usuário Encontrado
+          {searchTerm ? "Nenhum Resultado Encontrado" : "Nenhum Usuário Registrado" }
+            
           </Typography>
           <Typography variant="body2" className="empty-subtitle">
             {searchTerm
-              ? "Nenhum usuário corresponde à sua busca."
+              ? "Não foi possível achar nenhum resultado para sua busca. Tente refazer a pesquisa para encontrar o que busca."
               : "Clique em 'Cadastrar Usuário' para começar a cadastrar."}
           </Typography>
         </div>
