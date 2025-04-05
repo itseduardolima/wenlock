@@ -3,6 +3,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Home from "./pages/Home";
 import "./styles/main.scss";
+import MainLayout from "./layouts/MainLayout";
 
 const theme = createTheme({
   palette: {
@@ -40,7 +41,9 @@ function App() {
       <CssBaseline />
       <BrowserRouter>
         <Routes>
-          <Route index element={<Home />} />
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<Home />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

@@ -1,4 +1,4 @@
-@import 'variables';
+@use "variables" as *;
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap');
 
 * {
@@ -35,7 +35,7 @@ body {
 
 .main-content {
   flex: 1;
-  padding: 20px;
+  padding: 0px 20px;
 }
 
 .welcome-container {
