@@ -166,7 +166,7 @@
         .MuiTableCell-root {
           border-radius: 0;
           border-bottom: none;
-          height: 0;
+          height: 56px;
         }
 
         &:first-of-type {
@@ -198,15 +198,17 @@
       flex-direction: row;
       justify-content: end;
       gap: 8px;
+      
 
       .action-button {
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 36px;
         border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
         transition: all 0.2s ease;
+        box-shadow: 0px 2px 3px #0000000F;
 
         &.view-button {
           background-color: transparent;

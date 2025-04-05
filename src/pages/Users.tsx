@@ -1,5 +1,5 @@
-import type React from "react";
-import { useState, useEffect } from "react";
+import type React from "react"
+import { useState, useEffect } from "react"
 import {
   Typography,
   Paper,
@@ -15,7 +15,7 @@ import {
   TableRow,
   CircularProgress,
   Alert,
-} from "@mui/material";
+} from "@mui/material"
 import {
   Add as AddIcon,
   Search as SearchIcon,
@@ -24,28 +24,40 @@ import {
   KeyboardArrowRight as KeyboardArrowRightIcon,
   FirstPage as FirstPageIcon,
   LastPage as LastPageIcon,
-} from "@mui/icons-material";
-import "../styles/users.scss";
-import { ViewIcon } from "../assets/icons/ViewIcon";
-import { PenIcon } from "../assets/icons/PenIcon";
-import { TrashIcon } from "../assets/icons/TrashIcon";
-import { useUsers } from "../hooks/useUsers";
-import NotFound from "..//assets/images/notfound-img.svg";
+} from "@mui/icons-material"
+import "../styles/users.scss"
+import { ViewIcon } from "../assets/icons/ViewIcon"
+import { PenIcon } from "../assets/icons/PenIcon"
+import { TrashIcon } from "../assets/icons/TrashIcon"
+import { useUsers } from "../hooks/useUsers"
+import { useUserDetails } from "../hooks/useUserDetails"
+import UserDetailsDrawer from "../components/UserDetailsDrawer"
+import NotFound from "../assets/images/notfound-img.svg"
 
 const Users = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [page, setPage] = useState(1);
-  const itemsPerPage = 15;
-  const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [hoveredButton, setHoveredButton] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState("")
+  const [page, setPage] = useState(1)
+  const itemsPerPage = 15
+  const [debouncedSearch, setDebouncedSearch] = useState("")
+  const [hoveredButton, setHoveredButton] = useState<string | null>(null)
+
+  const {
+    user,
+    isOpen,
+    isLoading: isLoadingUserDetails,
+    isError: isErrorUserDetails,
+    error: errorUserDetails,
+    openUserDetails,
+    closeUserDetails,
+  } = useUserDetails()
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setDebouncedSearch(searchTerm);
-    }, 500);
+      setDebouncedSearch(searchTerm)
+    }, 500)
 
-    return () => clearTimeout(timer);
-  }, [searchTerm]);
+    return () => clearTimeout(timer)
+  }, [searchTerm])
 
   const {
     data: usersData,
@@ -56,47 +68,51 @@ const Users = () => {
     page,
     limit: itemsPerPage,
     search: debouncedSearch,
-  });
+  })
 
-  const users = usersData?.items || [];
-  const totalItems = usersData?.meta?.totalItems || 0;
-  const totalPages = usersData?.meta?.totalPages || 0;
-  const currentPage = usersData?.meta?.currentPage || 1;
+  const users = usersData?.items || []
+  const totalItems = usersData?.meta?.totalItems || 0
+  const totalPages = usersData?.meta?.totalPages || 0
+  const currentPage = usersData?.meta?.currentPage || 1
 
   useEffect(() => {
     if (usersData?.meta?.currentPage) {
-      setPage(usersData.meta.currentPage);
+      setPage(usersData.meta.currentPage)
     }
-  }, [usersData?.meta?.currentPage]);
+  }, [usersData?.meta?.currentPage])
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-    setPage(1);
-  };
+    setSearchTerm(e.target.value)
+    setPage(1)
+  }
 
   const handleClearSearch = () => {
-    setSearchTerm("");
-  };
+    setSearchTerm("")
+  }
 
   const handleFirstPage = () => {
-    setPage(1);
-  };
+    setPage(1)
+  }
 
   const handlePreviousPage = () => {
     if (page > 1) {
-      setPage(page - 1);
+      setPage(page - 1)
     }
-  };
+  }
 
   const handleNextPage = () => {
     if (page < totalPages) {
-      setPage(page + 1);
+      setPage(page + 1)
     }
-  };
+  }
 
   const handleLastPage = () => {
-    setPage(totalPages);
-  };
+    setPage(totalPages)
+  }
+
+  const handleViewUser = (userId: string) => {
+    openUserDetails(userId)
+  }
 
   const renderTableContent = () => {
     if (isLoading) {
@@ -104,31 +120,25 @@ const Users = () => {
         <div className="loading-state">
           <CircularProgress size={40} />
         </div>
-      );
+      )
     }
 
     if (isError) {
       return (
         <div className="error-state">
-          <Alert severity="error">
-            Erro ao carregar usuários. Por favor, tente novamente.
-          </Alert>
+          <Alert severity="error">Erro ao carregar usuários. Por favor, tente novamente.</Alert>
           <Typography variant="body2" className="error-details">
             {error instanceof Error ? error.message : "Erro desconhecido"}
           </Typography>
         </div>
-      );
+      )
     }
 
     if (users.length === 0) {
       return (
         <div className="empty-state">
           {searchTerm ? (
-            <img
-              src={NotFound}
-              alt="Notfound image"
-              className="notfound-image"
-            />
+            <img src={NotFound} alt="Notfound image" className="notfound-image" />
           ) : (
             ""
           )}
@@ -141,7 +151,7 @@ const Users = () => {
               : "Clique em 'Cadastrar Usuário' para começar a cadastrar."}
           </Typography>
         </div>
-      );
+      )
     }
 
     return (
@@ -169,6 +179,7 @@ const Users = () => {
                     className="action-button view-button"
                     onMouseEnter={() => setHoveredButton(`view-${user.id}`)}
                     onMouseLeave={() => setHoveredButton(null)}
+                    onClick={() => handleViewUser(user.id)}
                   >
                     <ViewIcon isHovered={hoveredButton === `view-${user.id}`} />
                   </div>
@@ -184,9 +195,7 @@ const Users = () => {
                     onMouseEnter={() => setHoveredButton(`delete-${user.id}`)}
                     onMouseLeave={() => setHoveredButton(null)}
                   >
-                    <TrashIcon
-                      isHovered={hoveredButton === `delete-${user.id}`}
-                    />
+                    <TrashIcon isHovered={hoveredButton === `delete-${user.id}`} />
                   </div>
                 </TableCell>
               </TableRow>
@@ -194,8 +203,8 @@ const Users = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    );
-  };
+    )
+  }
 
   return (
     <div className="users-container">
@@ -234,11 +243,7 @@ const Users = () => {
             ),
           }}
         />
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          className="add-button"
-        >
+        <Button variant="contained" startIcon={<AddIcon />} className="add-button">
           Cadastrar Usuário
         </Button>
       </div>
@@ -276,9 +281,7 @@ const Users = () => {
             <IconButton
               onClick={handleNextPage}
               disabled={page === totalPages || totalPages === 0}
-              className={`pagination-button ${
-                page === totalPages || totalPages === 0 ? "disabled" : ""
-              }`}
+              className={`pagination-button ${page === totalPages || totalPages === 0 ? "disabled" : ""}`}
             >
               <KeyboardArrowRightIcon />
             </IconButton>
@@ -286,9 +289,7 @@ const Users = () => {
             <IconButton
               onClick={handleLastPage}
               disabled={page === totalPages || totalPages === 0}
-              className={`pagination-button ${
-                page === totalPages || totalPages === 0 ? "disabled" : ""
-              }`}
+              className={`pagination-button ${page === totalPages || totalPages === 0 ? "disabled" : ""}`}
             >
               <LastPageIcon />
             </IconButton>
@@ -297,8 +298,18 @@ const Users = () => {
           </div>
         </div>
       </Paper>
-    </div>
-  );
-};
 
-export default Users;
+      <UserDetailsDrawer
+        isOpen={isOpen}
+        onClose={closeUserDetails}
+        user={user}
+        isLoading={isLoadingUserDetails}
+        isError={isErrorUserDetails}
+        error={errorUserDetails as Error}
+      />
+    </div>
+  )
+}
+
+export default Users
+
