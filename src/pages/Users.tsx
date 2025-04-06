@@ -31,7 +31,9 @@ import { PenIcon } from "../assets/icons/PenIcon"
 import { TrashIcon } from "../assets/icons/TrashIcon"
 import { useUsers } from "../hooks/useUsers"
 import { useUserDetails } from "../hooks/useUserDetails"
+import { useDeleteUser } from "../hooks/useDeleteUser"
 import UserDetailsDrawer from "../components/UserDetailsDrawer"
+import ConfirmationModal from "../components/ConfirmationModal"
 import NotFound from "../assets/images/notfound-img.svg"
 
 const Users = () => {
@@ -50,6 +52,8 @@ const Users = () => {
     openUserDetails,
     closeUserDetails,
   } = useUserDetails()
+
+  const { isDeleteModalOpen, openDeleteModal, closeDeleteModal, confirmDelete } = useDeleteUser()
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -114,6 +118,10 @@ const Users = () => {
     openUserDetails(userId)
   }
 
+  const handleDeleteUser = (userId: string) => {
+    openDeleteModal(userId)
+  }
+
   const renderTableContent = () => {
     if (isLoading) {
       return (
@@ -143,8 +151,7 @@ const Users = () => {
             ""
           )}
           <Typography variant="h6" className="empty-title">
-          {searchTerm ? "Nenhum Resultado Encontrado" : "Nenhum Usuário Registrado" }
-            
+            {searchTerm ? "Nenhum Resultado Encontrado" : "Nenhum Usuário Registrado"}
           </Typography>
           <Typography variant="body2" className="empty-subtitle">
             {searchTerm
@@ -195,6 +202,7 @@ const Users = () => {
                     className="action-button delete-button"
                     onMouseEnter={() => setHoveredButton(`delete-${user.id}`)}
                     onMouseLeave={() => setHoveredButton(null)}
+                    onClick={() => handleDeleteUser(user.id)}
                   >
                     <TrashIcon isHovered={hoveredButton === `delete-${user.id}`} />
                   </div>
@@ -308,9 +316,16 @@ const Users = () => {
         isError={isErrorUserDetails}
         error={errorUserDetails as Error}
       />
+
+      <ConfirmationModal
+        isOpen={isDeleteModalOpen}
+        onClose={closeDeleteModal}
+        onConfirm={confirmDelete}
+        title="Deseja excluir?"
+        message="O usuário será excluído."
+      />
     </div>
   )
 }
 
 export default Users
-

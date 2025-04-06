@@ -1,0 +1,73 @@
+.confirmation-modal {
+  .MuiBackdrop-root {
+    background: #ffffff00 0% 0% no-repeat padding-box;
+    opacity: 1;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+
+  .MuiDialog-paper {
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0px 1px 4px #00000029;
+  }
+
+  .modal-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .modal-title {
+    color: var(--verde-escuro-3-0b2b25);
+    font-weight: 700;
+    font-size: 26px;
+    margin-bottom: 8px;
+  }
+
+  .modal-message {
+    color: var(--verde-escuro-3-0b2b25);
+    font-size: 18px;
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    justify-content: center;
+
+    .cancel-button {
+      min-width: 120px;
+      border-radius: 8px;
+      border: 1px solid var(--verde-escuro-3-0b2b25);
+      color: var(--verde-escuro-3-0b2b25);
+      font-weight: 700;
+      padding: 8px 16px;
+      text-transform: none;
+      font-size: 18px;
+
+      &:hover {
+        background-color: rgba(11, 43, 37, 0.05);
+      }
+    }
+
+    .confirm-button {
+      min-width: 120px;
+      border-radius: 8px;
+      background-color: var(--color-teal);
+      color: white;
+      font-weight: 700;
+      padding: 8px 16px;
+      text-transform: none;
+      font-size: 18px;
+
+      &:hover {
+        background-color: var(--00606d-hover);
+      }
+    }
+  }
+}

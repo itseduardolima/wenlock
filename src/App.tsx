@@ -6,6 +6,7 @@ import "./styles/main.scss";
 import MainLayout from "./layouts/MainLayout";
 import Users from "./pages/Users";
 import { QueryProvider } from "./providers/QueryProvider";
+import { ToastContainer } from "react-toastify";
 
 const theme = createTheme({
   palette: {
@@ -50,6 +51,18 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
       </ThemeProvider>
     </QueryProvider>
   );

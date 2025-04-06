@@ -53,6 +53,15 @@ export const UserService = {
       return null
     }
   },
+
+  deleteUser: async (id: string): Promise<void> => {
+    try {
+      await api.delete(`/users/${id}`)
+    } catch (error) {
+      console.error(`Error deleting user with ID ${id}:`, error)
+      throw error
+    }
+  }
 };
 
 
