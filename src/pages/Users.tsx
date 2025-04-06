@@ -130,6 +130,10 @@ const Users = () => {
     openDeleteModal(userId)
   }
 
+  const handleEditUser = (userId: string) => {
+    navigate(`/usuarios/edit/${userId}`)
+  }
+
   const renderTableContent = () => {
     if (isLoading) {
       return (
@@ -203,6 +207,7 @@ const Users = () => {
                     className="action-button edit-button"
                     onMouseEnter={() => setHoveredButton(`edit-${user.id}`)}
                     onMouseLeave={() => setHoveredButton(null)}
+                    onClick={() => handleEditUser(user.id)}
                   >
                     <PenIcon isHovered={hoveredButton === `edit-${user.id}`} />
                   </div>

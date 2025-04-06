@@ -1,5 +1,5 @@
 import api from "./api";
-import type { CreateUserData, User } from "../interface/user.interface";
+import type { CreateUserData, UpdateUserData, User } from "../interface/user.interface";
 import { PaginatedResponse } from "../interface/response.interface";
 
 export const UserService = {
@@ -60,6 +60,16 @@ export const UserService = {
       return response.data
     } catch (error) {
       console.error("Error creating user:", error)
+      throw error
+    }
+  },
+
+  updateUser: async (id: string, userData: UpdateUserData): Promise<User> => {
+    try {
+      const response = await api.patch<User>(`/users/${id}`, userData)
+      return response.data
+    } catch (error) {
+      console.error(`Error updating user with ID ${id}:`, error)
       throw error
     }
   },

@@ -15,3 +15,10 @@ export interface CreateUserData {
   matricula: string
   password: string
 }
+
+export interface UpdateUserData {
+  name?: string
+  email?: string
+  matricula?: string
+  password?: string
+}

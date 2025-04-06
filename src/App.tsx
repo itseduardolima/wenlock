@@ -8,6 +8,7 @@ import Users from "./pages/Users";
 import { QueryProvider } from "./providers/QueryProvider";
 import { ToastContainer } from "react-toastify";
 import CreateUser from "./pages/CreateUser";
+import EditUser from "./pages/EditUser";
 
 const theme = createTheme({
   palette: {
@@ -50,6 +51,7 @@ function App() {
               <Route index element={<Home />} />
               <Route path="usuarios" element={<Users />} />
               <Route path="usuarios/cadastro" element={<CreateUser />} />
+              <Route path="usuarios/edit/:id" element={<EditUser />} />
             </Route>
           </Routes>
         </BrowserRouter>
