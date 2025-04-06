@@ -1,54 +1,126 @@
-# React + TypeScript + Vite
+# WenLock - Sistema de Gerenciamento de Usuários
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Sobre o Projeto
+WenLock é um sistema de gerenciamento de usuários com interface moderna desenvolvida em React. O sistema oferece funcionalidades de CRUD (Criar, Ler, Atualizar, Deletar) para gerenciamento de usuários, com uma interface intuitiva.
 
-Currently, two official plugins are available:
+## Tecnologias Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Frontend:
+- **React**
+- **TypeScript**
+- **React Router DOM**
+- **React Hook Form**
+- **Zod** (validação)
+- **Material UI**
+- **TanStack Query (React Query)**
+- **Axios**
+- **SASS/SCSS**
+- **React Toastify**
 
-## Expanding the ESLint configuration
+### Ferramentas de Desenvolvimento:
+- **Vite**
+- **TypeScript**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Pré-requisitos
+- **Node.js**
+- **npm**
+- **API de backend rodando** (URL no arquivo `.env`)
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 🚀 Como Começar
+
+Clone o Repositório:
+
+### `git clone https://github.com/itseduardolima/wenlock.git`
+
+Instale as Dependências:
+
+### `cd wenlock`
+### `npm install`
+
+No diretório do projeto, você pode executar:
+
+### `npm run dev`
+
+Executa o aplicativo no modo de desenvolvimento.\
+Abra [http://localhost:5173/] para visualizá-lo no navegador.
+
+## Estrutura do Projeto
+
+```plaintext
+wenlock/
+├── src/
+│   ├── assets/           # Ícones e recursos
+│   ├── components/       # Componentes reutilizáveis
+│   ├── hooks/            # Custom hooks (React)
+│   ├── interface/        # Interfaces TypeScript
+│   ├── layouts/          # Componentes de layout
+│   ├── pages/            # Páginas da aplicação
+│   ├── providers/        # Providers React (Context API)
+│   ├── schemas/          # Schemas de validação (Zod)
+│   ├── services/         # Serviços para comunicação com API
+│   ├── styles/           # Arquivos SCSS
+│   ├── App.tsx           # Componente raiz
+│   └── main.tsx          # Ponto de entrada React
+├── .env                  # Variáveis de ambiente
+├── package.json          # Dependências e scripts
+├── vite.config.ts        # Configuração do Vite
+└── tsconfig.json         # Configuração do TypeScript
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Funcionalidades Principais
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 1. Gerenciamento de Usuários
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+- **Listar Usuários**: Visualização paginada com pesquisa.
+- **Criar Usuário**: Formulário com validação para cadastro.
+- **Visualizar Usuário**: Drawer com detalhes do usuário.
+- **Editar Usuário**: Formulário para atualização de dados.
+- **Excluir Usuário**: Modal de confirmação para exclusão.
+
+### 2. Interface
+
+- Tema personalizado com componentes do Material UI
+- Notificações toast para feedback ao usuário
+- Navegação intuitiva com breadcrumbs
+- Sidebar colapsável para melhor uso do espaço
+
+### 3. Validação de Dados
+
+- Validação de formulários com Zod e React Hook Form
+- Feedback visual de erros para campos inválidos
+- Contadores de caracteres para campos com limite
+
+## Integração com API
+
+O sistema foi projetado para consumir uma API REST. A comunicação é feita através do Axios, e os endpoints esperados são:
+
+- `GET /users` - Listar usuários (paginado)
+- `GET /users/:id` - Obter detalhes de um usuário
+- `POST /users` - Criar um novo usuário
+- `PATCH /users/:id` - Atualizar um usuário
+- `DELETE /users/:id` - Excluir um usuário
+
+### Estrutura de Dados
+
+#### Usuário
+
+```json
+{
+  "id": "string",
+  "name": "string",
+  "email": "string",
+  "matricula": "string",
+  "createdAt": "string (ISO date)",
+  "updatedAt": "string (ISO date)"
+}
 ```
+
+## Hooks Personalizados
+
+O projeto utiliza hooks personalizados para gerenciar operações e estado:
+
+- `useUsers`: Gerencia listagem paginada de usuários
+- `useUserDetails`: Gerencia detalhes de um usuário específico
+- `useCreateUser`: Lida com a criação de usuários
+- `useEditUser`: Lida com a edição de usuários
+- `useDeleteUser`: Gerencia a exclusão de usuários
