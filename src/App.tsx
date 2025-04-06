@@ -7,6 +7,7 @@ import MainLayout from "./layouts/MainLayout";
 import Users from "./pages/Users";
 import { QueryProvider } from "./providers/QueryProvider";
 import { ToastContainer } from "react-toastify";
+import CreateUser from "./pages/CreateUser";
 
 const theme = createTheme({
   palette: {
@@ -48,6 +49,7 @@ function App() {
             <Route path="/" element={<MainLayout />}>
               <Route index element={<Home />} />
               <Route path="usuarios" element={<Users />} />
+              <Route path="usuarios/cadastro" element={<CreateUser />} />
             </Route>
           </Routes>
         </BrowserRouter>

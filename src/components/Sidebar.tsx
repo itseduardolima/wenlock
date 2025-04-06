@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react"
+import { useLocation } from "react-router-dom"
 import {
   Drawer,
   List,
@@ -10,20 +10,20 @@ import {
   Collapse,
   styled,
   IconButton,
-} from "@mui/material";
-import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
-import { Link } from "react-router-dom";
-import "../styles/sidebar.scss";
-import Logo from "../assets/images/logo.svg";
-import LogoSmall from "../assets/images/logo-small.svg";
-import { DashboardIcon } from "../assets/icons/DashboardIcon";
-import { UserIcon } from "../assets/icons/UserIcon";
-import { AcessIcon } from "../assets/icons/AcessIcon";
-import { ExpandLessIcon } from "../assets/icons/ExpandLess";
-import { ExpandMoreIcon } from "../assets/icons/ExpandMore";
+} from "@mui/material"
+import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material"
+import { Link } from "react-router-dom"
+import "../styles/sidebar.scss"
+import Logo from "../assets/images/logo.svg"
+import LogoSmall from "../assets/images/logo-small.svg"
+import { DashboardIcon } from "../assets/icons/DashboardIcon"
+import { UserIcon } from "../assets/icons/UserIcon"
+import { AcessIcon } from "../assets/icons/AcessIcon"
+import { ExpandLessIcon } from "../assets/icons/ExpandLess"
+import { ExpandMoreIcon } from "../assets/icons/ExpandMore"
 
-const drawerWidth = 336;
-const drawerCollapsedWidth = 116;
+const drawerWidth = 336
+const drawerCollapsedWidth = 116
 
 const StyledDrawer = styled(Drawer)(({ theme, open }) => ({
   width: open ? drawerWidth : drawerCollapsedWidth,
@@ -41,26 +41,30 @@ const StyledDrawer = styled(Drawer)(({ theme, open }) => ({
     overflowX: "hidden",
     boxShadow: "7px 0px 6px #0000002C",
   },
-}));
+}))
 
 const Sidebar = () => {
-  const [open, setOpen] = useState(true);
-  const [accessControlOpen, setAccessControlOpen] = useState(false);
-  const location = useLocation();
+  const [open, setOpen] = useState(true)
+  const [accessControlOpen, setAccessControlOpen] = useState(false)
+  const location = useLocation()
 
-  const isHomeActive = location.pathname === "/";
-  const isUsersActive = location.pathname === "/usuarios";
-  const isAccessControlActive =
-    location.pathname.startsWith("/usuarios") ||
-    location.pathname === "/controle-de-acesso";
+  const isHomeActive = location.pathname === "/"
+  const isUsersActive = location.pathname.startsWith("/usuarios")
+  const isAccessControlActive = location.pathname.startsWith("/usuarios")
+
+  useEffect(() => {
+    if (isUsersActive && !accessControlOpen) {
+      setAccessControlOpen(true)
+    }
+  }, [isUsersActive, accessControlOpen])
 
   const toggleSidebar = () => {
-    setOpen(!open);
-  };
+    setOpen(!open)
+  }
 
   const toggleAccessControl = () => {
-    setAccessControlOpen(!accessControlOpen);
-  };
+    setAccessControlOpen(!accessControlOpen)
+  }
 
   return (
     <div className="sidebar-container">
@@ -75,12 +79,7 @@ const Sidebar = () => {
           </div>
         </div>
         <List className="sidebar-list">
-          <ListItem
-            disablePadding
-            component={Link}
-            to="/"
-            className={`sidebar-item ${isHomeActive ? "active" : ""}`}
-          >
+          <ListItem disablePadding component={Link} to="/" className={`sidebar-item ${isHomeActive ? "active" : ""}`}>
             <ListItemButton
               className={`menu-button ${!open ? "collapsed" : ""}`}
               sx={{
@@ -112,9 +111,7 @@ const Sidebar = () => {
                 sx={{
                   opacity: open ? 1 : 0,
                   "& .MuiTypography-root": {
-                    color: isHomeActive
-                      ? "var(--verde-black-menu-lateral-021b1a)"
-                      : "var(--full-branco-ffffff)",
+                    color: isHomeActive ? "var(--verde-black-menu-lateral-021b1a)" : "var(--full-branco-ffffff)",
                     fontWeight: 800,
                     fontSize: "16px",
                     lineHeight: "22px",
@@ -124,10 +121,7 @@ const Sidebar = () => {
             </ListItemButton>
           </ListItem>
 
-          <ListItem
-            disablePadding
-            className="sidebar-item"
-          >
+          <ListItem disablePadding className="sidebar-item">
             <ListItemButton
               onClick={toggleAccessControl}
               className={`menu-button ${!open ? "collapsed" : ""}`}
@@ -167,9 +161,7 @@ const Sidebar = () => {
                 }}
               />
               {open && (
-                <span className="expand-icon">
-                  {accessControlOpen ? <ExpandMoreIcon /> : <ExpandLessIcon />}
-                </span>
+                <span className="expand-icon">{accessControlOpen ? <ExpandMoreIcon /> : <ExpandLessIcon />}</span>
               )}
             </ListItemButton>
           </ListItem>
@@ -180,14 +172,10 @@ const Sidebar = () => {
                 disablePadding
                 component={Link}
                 to="/usuarios"
-                className={`sidebar-item nested ${
-                  isUsersActive ? "active" : ""
-                }`}
+                className={`sidebar-item nested ${isUsersActive ? "active" : ""}`}
               >
                 <ListItemButton
-                  className={`menu-button submenu-button ${
-                    !open ? "collapsed" : ""
-                  }`}
+                  className={`menu-button submenu-button ${!open ? "collapsed" : ""}`}
                   sx={{
                     minHeight: 37,
                     height: 37,
@@ -216,9 +204,7 @@ const Sidebar = () => {
                     sx={{
                       opacity: open ? 1 : 0,
                       "& .MuiTypography-root": {
-                        color: isUsersActive
-                          ? "var(--verde-black-menu-lateral-021b1a)"
-                          : "var(--full-branco-ffffff)",
+                        color: isUsersActive ? "var(--verde-black-menu-lateral-021b1a)" : "var(--full-branco-ffffff)",
                         fontSize: "16px",
                         lineHeight: "22px",
                       },
@@ -239,10 +225,7 @@ const Sidebar = () => {
               </>
             ) : (
               <>
-                <span
-                  style={{ display: "flex", justifyContent: "center" }}
-                  className="version"
-                >
+                <span style={{ display: "flex", justifyContent: "center" }} className="version">
                   V 0.0.0
                 </span>
               </>
@@ -274,7 +257,7 @@ const Sidebar = () => {
         {open ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
       </IconButton>
     </div>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar

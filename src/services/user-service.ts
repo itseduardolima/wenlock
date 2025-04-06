@@ -1,5 +1,5 @@
 import api from "./api";
-import type { User } from "../interface/user.interface";
+import type { CreateUserData, User } from "../interface/user.interface";
 import { PaginatedResponse } from "../interface/response.interface";
 
 export const UserService = {
@@ -51,6 +51,16 @@ export const UserService = {
     } catch (error) {
       console.error(`Error fetching user with ID ${id}:`, error)
       return null
+    }
+  },
+
+  createUser: async (userData: CreateUserData): Promise<User> => {
+    try {
+      const response = await api.post<User>("/users", userData)
+      return response.data
+    } catch (error) {
+      console.error("Error creating user:", error)
+      throw error
     }
   },
 

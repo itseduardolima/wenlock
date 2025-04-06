@@ -1,5 +1,6 @@
 import type React from "react"
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import {
   Typography,
   Paper,
@@ -37,12 +38,14 @@ import ConfirmationModal from "../components/ConfirmationModal"
 import NotFound from "../assets/images/notfound-img.svg"
 
 const Users = () => {
+  const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState("")
   const [page, setPage] = useState(1)
   const itemsPerPage = 15
   const [debouncedSearch, setDebouncedSearch] = useState("")
   const [hoveredButton, setHoveredButton] = useState<string | null>(null)
 
+  // Hook para gerenciar os detalhes do usuário
   const {
     user,
     isOpen,
@@ -53,6 +56,7 @@ const Users = () => {
     closeUserDetails,
   } = useUserDetails()
 
+  // Hook para gerenciar a exclusão de usuário
   const { isDeleteModalOpen, openDeleteModal, closeDeleteModal, confirmDelete } = useDeleteUser()
 
   useEffect(() => {
@@ -116,6 +120,10 @@ const Users = () => {
 
   const handleViewUser = (userId: string) => {
     openUserDetails(userId)
+  }
+
+  const handleAddUser = () => {
+    navigate("/usuarios/cadastro")
   }
 
   const handleDeleteUser = (userId: string) => {
@@ -252,7 +260,7 @@ const Users = () => {
             ),
           }}
         />
-        <Button variant="contained" startIcon={<AddIcon />} className="add-button">
+        <Button variant="contained" startIcon={<AddIcon />} className="add-button" onClick={handleAddUser}>
           Cadastrar Usuário
         </Button>
       </div>
